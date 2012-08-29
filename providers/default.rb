@@ -46,6 +46,8 @@ action :restart do
 
   run_actions_with_context(:before_restart, @run_context)
 
+  Chef::Log.info("APPLICATION :restart ? #{run_restart}")
+
   run_restart
 
   run_actions_with_context(:after_restart, @run_context)
@@ -141,6 +143,7 @@ def run_deploy(force=nil)
     restart_command do
       ([new_resource]+new_resource.sub_resources).each do |res|
         cmd = res.restart_command
+        Chef::Log.info("APPLICATION[#{res.name}] restart_command > #{cmd.class}")
         if cmd.is_a? Proc
           provider = Chef::Platform.provider_for_resource(res)
           provider.load_current_resource
