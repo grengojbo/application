@@ -114,7 +114,10 @@ def before_deploy
   end
 end
 
-def run_deploy(force = false)
+def run_deploy(force=nil)
+  if force == nil
+    force = @new_resource.force
+  end
   # Alias to a variable so I can use in sub-resources
   new_resource = @new_resource
   app_provider = self
