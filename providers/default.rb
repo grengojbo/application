@@ -143,7 +143,6 @@ def run_deploy(force=nil)
     restart_command do
       ([new_resource]+new_resource.sub_resources).each do |res|
         cmd = res.restart_command
-        Chef::Log.info("APPLICATION[#{res.name}] restart_command > #{cmd.class}")
         if cmd.is_a? Proc
           provider = Chef::Platform.provider_for_resource(res)
           provider.load_current_resource
