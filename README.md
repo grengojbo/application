@@ -228,3 +228,8 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+pip install django-fab-deploy
+pip install jinja2
+pip install "fabric >= 1.4"
+pip install fabric-taskset
