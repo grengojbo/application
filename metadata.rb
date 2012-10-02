@@ -6,7 +6,7 @@ long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.0.0"
 recipe           "application", "Loads application databags and selects recipes to use"
 
-%w{ search }.each do |cb|
+%w{ python gunicorn }.each do |cb|
   depends cb
 end
 
