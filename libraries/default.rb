@@ -28,8 +28,8 @@ class Chef
 
     class Application
       module OptionsCollector
-        def options
-          @options ||= {}
+        def _options
+          @_options ||= {}
         end
 
         def method_missing(method_sym, value=nil, &block)
@@ -37,8 +37,8 @@ class Chef
         rescue NameError
           value ||= block
           method_sym = method_sym.to_s.chomp('=').to_sym
-          options[method_sym] = value if value
-          options[method_sym] ||= nil
+          _options[method_sym] = value if value
+          _options[method_sym] ||= nil
         end
       end
     end
@@ -82,7 +82,7 @@ class Chef
         if block
           collector = OptionsBlock.new
           collector.instance_eval(&block)
-          options.update(collector.options)
+          options.update(collector._options)
         end
         options
       end
@@ -115,9 +115,7 @@ class Chef
         dbm = find_matching_role(role)
         Chef::Log.warn("No node with role #{role}") if role && !dbm
 
-        if respond_to?(:database) && database.has_key?('host')
-          database['host']
-        elsif dbm && dbm.attribute?('cloud')
+        if dbm && dbm.attribute?('cloud')
           dbm['cloud']['local_ipv4']
         elsif dbm
           dbm['ipaddress']
