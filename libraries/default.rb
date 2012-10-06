@@ -133,7 +133,7 @@ class Chef
 
       def deploy_provider
         @deploy_provider ||= begin
-          deploy_provider = Chef::Platform.provider_for_resource(@deploy_resource)
+          deploy_provider = Chef::Platform.provider_for_resource(@deploy_resource, :nothing)
           deploy_provider.load_current_resource
           deploy_provider
         end
